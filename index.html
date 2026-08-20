@@ -2,8 +2,28 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>日本さかな検定（ととけん）模擬クイズ</title>
+
+    <!-- PWA: マニフェスト & テーマカラー -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#06101C">
+    <meta name="description" content="日本さかな検定3級対策のための模擬クイズアプリ。魚の知識と食文化を6カテゴリ・120問で学べます。">
+
+    <!-- PWA: iOS(Safari)でホーム画面に追加した際の設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ととけんクイズ">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+
+    <!-- favicon / Android -->
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+    <meta name="mobile-web-app-capable" content="yes">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
@@ -1112,6 +1132,15 @@
         }
 
         window.onload = init;
+
+        // PWA: Service Workerを登録してオフライン対応を有効化
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch((err) => {
+                    console.warn('Service Worker の登録に失敗しました:', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
